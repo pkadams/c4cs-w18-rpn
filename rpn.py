@@ -7,10 +7,18 @@ def calculate(arg):
 			value = int(token)
 			stack.append(value)
 		except ValueError:
-			arg1 = stack.pop()
-			arg2 = stack.pop()
-			result = arg1 + arg2
-			stack.append(result)
+			if token == '+':
+				arg1 = stack.pop()
+				arg2 = stack.pop()
+				result = arg1 + arg2
+				stack.append(result)
+			elif token == '-':
+				arg2 = stack.pop()
+				arg1 = stack.pop()
+				result = arg1 - arg2
+				stack.append(result)
+			else:
+				print('Not an operator.')
 		print(stack)
 	return stack.pop()
 
