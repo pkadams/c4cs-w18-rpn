@@ -1,5 +1,22 @@
 #!/usr/bin/env python 3
 
+import operator
+import logging
+import sys
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+sh = logging.StreamHandler(sys.stdout)
+logger.addHandler(sh)
+
+operators = {
+	'+': operator.add,
+	'-': operator.sub,
+	'/': operator.truediv,
+	'*': operator.mul,
+	
+}
+
 def calculate(arg):
 	stack = list()
 	for token in arg.split():
@@ -7,19 +24,14 @@ def calculate(arg):
 			value = int(token)
 			stack.append(value)
 		except ValueError:
-			if token == '+':
-				arg1 = stack.pop()
-				arg2 = stack.pop()
-				result = arg1 + arg2
-				stack.append(result)
-			elif token == '-':
-				arg2 = stack.pop()
-				arg1 = stack.pop()
-				result = arg1 - arg2
-				stack.append(result)
-			else:
-				print('Not an operator.')
-		print(stack)
+			function = operators[token]
+			arg2 = stack.pop()
+			arg1 = stack.pop()
+			result = function(arg1, arg2)
+			stack.append(result)
+		logger.debug(stack)
+	if len(stack) != 1:
+		raise TypeError
 	return stack.pop()
 
 def main():
