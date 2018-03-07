@@ -14,7 +14,8 @@ operators = {
 	'-': operator.sub,
 	'/': operator.truediv,
 	'*': operator.mul,
-	
+	'^': operator.pow,
+
 }
 
 def calculate(arg):
