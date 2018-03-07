@@ -1,8 +1,9 @@
 language: python
 python: 
- -3.5
+	- "3.5"
 install:
- -pip install unittest2
-script: python for398.py
+ -pip install -r requirements.txt
+script:
+	- pytest
 
 
